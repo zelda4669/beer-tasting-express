@@ -1,0 +1,25 @@
+{
+  "name": "beer-tasting",
+  "version": "1.0.0",
+  "description": "Beer tasting notes",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zelda4669/beer-tasting-express.git"
+  },
+  "keywords": [
+    "beer"
+  ],
+  "author": "Noelle Ferrari",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/zelda4669/beer-tasting-express/issues"
+  },
+  "homepage": "https://github.com/zelda4669/beer-tasting-express#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
