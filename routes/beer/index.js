@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router({ mergeParams: true })
+const authenticateUsers = require('../../middlewares')
 
-// GET requests
+// public endpoints
 router.get('/', getAllBeers)
 router.get('/:beerid', getBeerDetailInformation)
 
@@ -13,22 +14,20 @@ function getBeerDetailInformation(req, res) {
     res.send('Details about a beer')
 }
 
-// POST requests
+// private endpoints
+router.use(authenticateUsers)
+
 router.post('/', createBeer)
+router.put('/:beerid', editBeerInfo)
+router.delete('/:beerid', deleteBeer)
 
 function createBeer(req, res) {
     res.send('Beer created!')
 }
 
-// PUT requests
-router.put('/:beerid', editBeerInfo)
-
 function editBeerInfo() {
     res.send('Beer info edited!')
 }
-
-// DELETE requests
-router.delete('/:beerid', deleteBeer)
 
 function deleteBeer(req, res) {
     res.send('Beer deleted!')
