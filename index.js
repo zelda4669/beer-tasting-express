@@ -1,25 +1,9 @@
-const express = require('express')
-const router = require('./routes')
-const logger = require('./utils/logger')
+const app = require('./app')
+const http = require('http')
+const config = require('./utils/config')
 
-const app = express()
-const port = 3000
+const server = http.createServer(app)
 
-app.use((req, res, next) => {
-    req.logger = Object.freeze(logger)
-    next()
-})
-
-app.use('/api', router)
-
-app.use((err, req, res, next) => {
-    res
-    .status(500)
-    .json({
-        message: 'Internal server error'
-    })
-})
-
-app.listen(port, () => {
-    console.log(`Beer app listening on port ${port}`)
+server.listen(config.PORT, () => {
+    console.log(`Beer app listening on port ${config.PORT}`)
 })

@@ -3,10 +3,10 @@ function authenticateUsers(req, res, next) {
         return next()
     }
     res
-    .status(401)
-    .json({
-        message: 'Authentication Failed'
-    })
+        .status(401)
+        .json({
+            message: 'Authentication Failed'
+        })
 }
 
 module.exports = authenticateUsers

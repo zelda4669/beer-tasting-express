@@ -1,21 +1,21 @@
 const express = require('express')
-const router = express.Router()
-const brewery = require('../../controllers/brewery')
-const authenticateUsers = require('../../middlewares')
+const breweryRouter = express.Router()
+const breweryController = require('../../controllers/brewery')
+// const authenticateUsers = require('../../middlewares')
 
 // public endpoints
-router.get('/', brewery.listAllBreweries)
-router.get('/:breweryid', brewery.getBreweryDetailInformation)
+breweryRouter.get('/', breweryController.listAllBreweries)
+breweryRouter.get('/:breweryid', breweryController.getBreweryDetailInformation)
 
 
 
 // private endpoints
-router.use(authenticateUsers)
+// breweryRouter.use(authenticateUsers)
 
-router.post('/', brewery.addBrewery)
-router.route('/:breweryid')
-    .put(brewery.editBreweryInfo)
-    .delete(brewery.deleteBrewery)
+breweryRouter.post('/', breweryController.addBrewery)
+breweryRouter.route('/:breweryid')
+    .put(breweryController.editBreweryInfo)
+    .delete(breweryController.deleteBrewery)
 
 
-module.exports = router
+module.exports = breweryRouter

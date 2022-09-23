@@ -10,7 +10,7 @@ function createBeer(req, res) {
     res.send('Beer created!')
 }
 
-function editBeerInfo() {
+function editBeerInfo(req, res) {
     res.send('Beer info edited!')
 }
 
@@ -18,16 +18,12 @@ function deleteBeer(req, res) {
     res.send('Beer deleted!')
 }
 
-function internalHelperFunction(req, res) {
-    res.json({
-        message: 'Sensitive info'
-    })
-}
-
-module.exports = {
+const beerController = {
     getAllBeers,
     getBeerDetailInformation,
     createBeer,
     editBeerInfo,
     deleteBeer,
 }
+
+module.exports = beerController
