@@ -8,9 +8,8 @@ POST http://localhost:3001/api/brewery
 Content-Type: application/json
 
     {
-        "name": "Postdoc",
-        "location": "Redmond",
-        "tasted": true
+        "name": "Diamond Knot",
+        "location": "Montlake Terrace"
     }
 
 ###

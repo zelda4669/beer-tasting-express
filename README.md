@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-- [Overview](#Overview)
+- [Overview](#overview)
 - [Tools Used](#tools-used)
 - [What I Learned](#learnings)
 - [Next Steps](#next-steps)
@@ -10,7 +10,9 @@
 
 ## Overview
 
-Currently, the app saves basic information about breweries to a MongoDB and fetches the information to be displayed as a JSON file. Currently, only the backend has been developed. The front end will be built next using React. Placeholders have been created for beer and user info, but the logic hasn't been written yet.
+The current version of this app displays a list of craft breweries. The app displays the brewery name, location, and allows the user to select whether or not they have tasted it. Eventually, this app will allow users to save tasting notes about craft beers and lookup information about the breweries. Placeholder functions have been created for beer and user info, but the logic hasn't been written yet.
+
+The front end of the app is built using React. The repo for the front end can be found [here](https://github.com/zelda4669/beer-tasting-frontend).
 
 ## Tools Used
 
@@ -26,7 +28,7 @@ I am building similar applications concurrently in Node/Express and [Python/Djan
 
 ## Next Steps
 
-- Build React frontend
+- ~~Build React frontend~~
 - Build out endpoints for beer info
 - Develop user authentication
 - Build out endpoints for user notes

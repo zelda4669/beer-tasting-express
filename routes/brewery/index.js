@@ -6,13 +6,13 @@ const breweryController = require('../../controllers/brewery')
 // public endpoints
 breweryRouter.get('/', breweryController.listAllBreweries)
 breweryRouter.get('/:breweryid', breweryController.getBreweryDetailInformation)
-
+breweryRouter.post('/', breweryController.addBrewery)
 
 
 // private endpoints
 // breweryRouter.use(authenticateUsers)
 
-breweryRouter.post('/', breweryController.addBrewery)
+
 breweryRouter.route('/:breweryid')
     .put(breweryController.editBreweryInfo)
     .delete(breweryController.deleteBrewery)
