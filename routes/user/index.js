@@ -3,6 +3,7 @@ const router = express.Router()
 const user = require('../../controllers/user')
 
 // public endpoints
+router.post('/registration', user.createUser)
 router.post('/login', user.handleLogin)
 
 // private endpoints

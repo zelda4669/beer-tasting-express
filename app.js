@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors')
 const basicRouter = require('./routes/basic/index')
 const breweryRouter = require('./routes/brewery/index')
+const userRouter = require('./routes/user/index')
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 
@@ -24,6 +25,7 @@ app.use(middleware.requestLogger)
 
 app.use('/', basicRouter)
 app.use('/api/brewery', breweryRouter)
+app.use('/api/users', userRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

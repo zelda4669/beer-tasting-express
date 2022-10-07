@@ -1,7 +1,5 @@
 const morgan = require('morgan')
-morgan.token('content', function (req) {return JSON.stringify(req.body)})
-const logString = ':method :url :status :res[content-length] :response-time ms :content'
-const requestLogger = morgan(logString)
+const requestLogger = morgan('dev')
 
 const unknownEndpoint = (req, res) => {
     res.status(404).send('Page not found')
