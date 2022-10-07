@@ -13,8 +13,12 @@ const brewerySchema = new mongoose.Schema({
     tasted: {
         type: Boolean,
         default: false
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
-})
+}, {timestamps: true})
 
 brewerySchema.set('toJSON', {
     transform: (document, returnedObject) => {
