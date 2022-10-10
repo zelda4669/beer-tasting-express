@@ -14,7 +14,7 @@ async function getBreweryDetailInformation(req, res) {
     }
 }
 
-function addBrewery(req, res) {
+async function addBrewery(req, res) {
     const body = req.body
 
     if(body.name === undefined) {
@@ -27,9 +27,8 @@ function addBrewery(req, res) {
         tasted: body.tasted || false
     })
 
-    brewery.save().then(newBrewery => {
-        res.json(newBrewery)
-    })
+    const savedBrewery = await brewery.save()
+    res.status(201).json(savedBrewery)
 }
 
 function editBreweryInfo(req, res, next) {

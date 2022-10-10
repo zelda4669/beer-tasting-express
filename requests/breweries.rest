@@ -8,8 +8,8 @@ POST http://localhost:3001/api/brewery
 Content-Type: application/json
 
     {
-        "name": "Diamond Knot",
-        "location": "Montlake Terrace"
+        "name": "Urban Family",
+        "location": "Seattle"
     }
 
 ###
