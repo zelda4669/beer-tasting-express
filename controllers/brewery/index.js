@@ -31,22 +31,20 @@ async function addBrewery(req, res) {
     res.status(201).json(savedBrewery)
 }
 
-function editBreweryInfo(req, res, next) {
+async function editBreweryInfo(req, res) {
     const body = req.body
 
     const brewery = {
         tasted: body.tasted
     }
 
-    Brewery.findByIdAndUpdate(
+    const updatedBrewery = await Brewery.findByIdAndUpdate(
         req.params.breweryid,
         brewery,
         { new: true, runValidators: true, context: 'query' }
     )
-        .then(updatedItem => {
-            res.json(updatedItem)
-        })
-        .catch(err => next(err))
+
+    res.json(updatedBrewery)
 }
 
 function deleteBrewery(req, res, next) {

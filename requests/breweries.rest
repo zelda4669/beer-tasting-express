@@ -13,7 +13,7 @@ Content-Type: application/json
     }
 
 ###
-PUT http://localhost:3001/api/brewery/632d4d1346d7c805ff7c64f3
+PUT http://localhost:3001/api/brewery/6325ea64ab6d56149cc52925
 Content-Type: application/json
 
     {
