@@ -1,9 +1,8 @@
 const Brewery = require('../../models/brewery')
 
-function listAllBreweries(req, res) {
-    Brewery.find({}).then(b => {
-        res.json(b)
-    })
+async function listAllBreweries(req, res) {
+    const breweries = await Brewery.find({})
+    res.json(breweries)
 }
 
 function getBreweryDetailInformation(req, res, next) {
@@ -63,12 +62,10 @@ function deleteBrewery(req, res, next) {
         .catch(err => next(err))
 }
 
-const breweryController = {
+module.exports = {
     listAllBreweries,
     getBreweryDetailInformation,
     addBrewery,
     editBreweryInfo,
     deleteBrewery,
 }
-
-module.exports = breweryController
