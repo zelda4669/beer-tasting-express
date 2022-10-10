@@ -35,7 +35,7 @@ describe('user creation', () => {
             .post('/api/users/registration')
             .send(newUser)
             .expect(201)
-            .expect('Content-Type', /applicaiont\/json/)
+            .expect('Content-Type', /application\/json/)
 
         const usersAtEnd = await helper.currentUsers()
         expect(usersAtEnd).toHaveLength(usersAtStart.length + 1)

@@ -1,19 +1,19 @@
 GET http://localhost:3001/api/brewery
 
 ###
-GET http://localhost:3001/api/brewery/6325ea0fab6d56149cc5291d
+GET http://localhost:3001/api/brewery/6325ea5dab6d56149cc52923
 
 ###
 POST http://localhost:3001/api/brewery
 Content-Type: application/json
 
     {
-        "name": "Diamond Knot",
-        "location": "Montlake Terrace"
+        "name": "Urban Family",
+        "location": "Seattle"
     }
 
 ###
-PUT http://localhost:3001/api/brewery/632d4d1346d7c805ff7c64f3
+PUT http://localhost:3001/api/brewery/6325ea64ab6d56149cc52925
 Content-Type: application/json
 
     {
@@ -21,4 +21,4 @@ Content-Type: application/json
     }
 
 ###
-DELETE http://localhost:3001/api/brewery/632d4d1346d7c805ff7c64f3
+DELETE http://localhost:3001/api/brewery/633d65974114bc52375717d3

@@ -1,25 +1,20 @@
 const Brewery = require('../../models/brewery')
 
-function listAllBreweries(req, res) {
-    Brewery.find({}).then(b => {
-        res.json(b)
-    })
+async function listAllBreweries(req, res) {
+    const breweries = await Brewery.find({})
+    res.json(breweries)
 }
 
-function getBreweryDetailInformation(req, res, next) {
-    let id = req.params.breweryid
-    Brewery.findById(id)
-        .then(b => {
-            if(b) {
-                res.json(b)
-            } else {
-                res.status(404).end()
-            }
-        })
-        .catch(err => next(err))
+async function getBreweryDetailInformation(req, res) {
+    const brewery = await Brewery.findById(req.params.breweryid)
+    if(brewery) {
+        res.json(brewery)
+    } else {
+        res.status(404).end()
+    }
 }
 
-function addBrewery(req, res) {
+async function addBrewery(req, res) {
     const body = req.body
 
     if(body.name === undefined) {
@@ -32,43 +27,35 @@ function addBrewery(req, res) {
         tasted: body.tasted || false
     })
 
-    brewery.save().then(newBrewery => {
-        res.json(newBrewery)
-    })
+    const savedBrewery = await brewery.save()
+    res.status(201).json(savedBrewery)
 }
 
-function editBreweryInfo(req, res, next) {
+async function editBreweryInfo(req, res) {
     const body = req.body
 
     const brewery = {
         tasted: body.tasted
     }
 
-    Brewery.findByIdAndUpdate(
+    const updatedBrewery = await Brewery.findByIdAndUpdate(
         req.params.breweryid,
         brewery,
         { new: true, runValidators: true, context: 'query' }
     )
-        .then(updatedItem => {
-            res.json(updatedItem)
-        })
-        .catch(err => next(err))
+
+    res.json(updatedBrewery)
 }
 
-function deleteBrewery(req, res, next) {
-    Brewery.findByIdAndRemove(req.params.breweryid)
-        .then(() => {
-            res.status(204).send('Brewery has been deleted.')
-        })
-        .catch(err => next(err))
+async function deleteBrewery(req, res) {
+    await Brewery.findByIdAndRemove(req.params.breweryid)
+    res.status(204).send('Brewery has been deleted.')
 }
 
-const breweryController = {
+module.exports = {
     listAllBreweries,
     getBreweryDetailInformation,
     addBrewery,
     editBreweryInfo,
     deleteBrewery,
 }
-
-module.exports = breweryController
