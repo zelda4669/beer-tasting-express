@@ -1,5 +1,14 @@
+const jwt = require('jsonwebtoken')
 const Brewery = require('../../models/brewery')
 const User = require('../../models/users')
+
+function getTokenFrom(req) {
+    const auth = req.get('authorization')
+    if(auth && auth.toLowerCase().startsWith('bearer ')) {
+        return auth.substring(7)
+    }
+    return null
+}
 
 async function listAllBreweries(req, res) {
     const breweries = await Brewery.find({})
@@ -17,8 +26,14 @@ async function getBreweryDetailInformation(req, res) {
 
 async function addBrewery(req, res) {
     const body = req.body
+    const token = getTokenFrom(req)
+    const auth = jwt.verify(token, process.env.SECRET)
 
-    const user = await User.findById(body.userId)
+    if(!auth.id) {
+        return res.status(401).json({ error: 'token missing or invalid' })
+    }
+
+    const user = await User.findById(auth.userId)
 
     if(body.name === undefined) {
         return res.status(400).send('missing content')
