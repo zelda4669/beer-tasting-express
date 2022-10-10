@@ -1,13 +1,14 @@
 const express = require('express')
-const router = express.Router()
+const userRouter = express.Router()
 const user = require('../../controllers/user')
 
 // public endpoints
-router.post('/registration', user.createUser)
-router.post('/login', user.handleLogin)
+userRouter.get('/', user.getAllUsers)
+userRouter.post('/registration', user.createUser)
+userRouter.post('/login', user.handleLogin)
 
 // private endpoints
-router.post('/reset-password/request', user.requestPasswordResetLink)
-router.post('/reset-password/confirm', user.changePassword)
+userRouter.post('/reset-password/request', user.requestPasswordResetLink)
+userRouter.post('/reset-password/confirm', user.changePassword)
 
-module.exports = router
+module.exports = userRouter

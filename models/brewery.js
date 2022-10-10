@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const brewerySchema = new mongoose.Schema({
     name: {
         type: String,
-        unique: [true, 'That name is already in your phonebook!'],
+        unique: [true, 'An entry for that brewery already exists.'],
         required: true
     },
     location: {

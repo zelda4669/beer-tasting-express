@@ -8,8 +8,9 @@ POST http://localhost:3001/api/brewery
 Content-Type: application/json
 
     {
-        "name": "Urban Family",
-        "location": "Seattle"
+        "name": "Flying Bike",
+        "location": "Seattle",
+        "userId": "6343b17ce371cddea3ca8bb7"
     }
 
 ###

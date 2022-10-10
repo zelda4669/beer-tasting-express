@@ -1,4 +1,5 @@
 const Brewery = require('../../models/brewery')
+const User = require('../../models/users')
 
 async function listAllBreweries(req, res) {
     const breweries = await Brewery.find({})
@@ -17,6 +18,8 @@ async function getBreweryDetailInformation(req, res) {
 async function addBrewery(req, res) {
     const body = req.body
 
+    const user = await User.findById(body.userId)
+
     if(body.name === undefined) {
         return res.status(400).send('missing content')
     }
@@ -24,10 +27,13 @@ async function addBrewery(req, res) {
     const brewery = new Brewery({
         name: body.name,
         location: body.location,
-        tasted: body.tasted || false
+        tasted: body.tasted || false,
+        owner: user._id
     })
 
     const savedBrewery = await brewery.save()
+    user.ownedBreweries = user.ownedBreweries.concat(savedBrewery._id)
+    await user.save()
     res.status(201).json(savedBrewery)
 }
 

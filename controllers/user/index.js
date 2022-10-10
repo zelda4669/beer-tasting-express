@@ -1,6 +1,11 @@
 const bcrypt = require('bcrypt')
 const User = require('../../models/users')
 
+async function getAllUsers(req, res) {
+    const users = await User.find({})
+    res.json(users)
+}
+
 async function createUser(req, res) {
     const { username, email, password } = req.body
 
@@ -46,6 +51,7 @@ function changePassword(req, res) {
 }
 
 module.exports = {
+    getAllUsers,
     createUser,
     handleLogin,
     requestPasswordResetLink,
