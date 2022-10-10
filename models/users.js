@@ -19,7 +19,7 @@ userSchema.set('toJSON', {
         delete returnedObject.__v
         delete returnedObject.passwordHash
     }
-}, {timestamps: true})
+}, { timestamps: true })
 
 const User = mongoose.model('User', userSchema)
 

@@ -18,7 +18,7 @@ const brewerySchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
-}, {timestamps: true})
+}, { timestamps: true })
 
 brewerySchema.set('toJSON', {
     transform: (document, returnedObject) => {
