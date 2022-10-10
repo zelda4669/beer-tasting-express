@@ -53,13 +53,13 @@ describe('user creation', () => {
             password: 'pikapi'
         }
 
-        await api
+        const res = await api
             .post('/api/users/registration')
             .send(newUser)
             .expect(400)
             .expect('Content-Type', /application\/json/)
         
-        expect(result.body.error).toContain('That username is already taken!')
+        expect(res.body.error).toContain('That username is already taken!')
 
         const usersAtEnd = await helper.currentUsers()
         expect(usersAtEnd).toEqual(usersAtStart)
@@ -74,13 +74,13 @@ describe('user creation', () => {
             password: 'mommyMisty'
         }
 
-        await api
+        const res = await api
             .post('/api/users/registration')
             .send(newUser)
             .expect(400)
             .expect('Content-Type', /application\/json/)
         
-        expect(result.body.error).toContain('An account with that email already exists!')
+        expect(res.body.error).toContain('An account with that email already exists!')
 
         const usersAtEnd = await helper.currentUsers()
         expect(usersAtEnd).toEqual(usersAtStart)

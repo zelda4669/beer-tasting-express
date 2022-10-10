@@ -13,7 +13,7 @@ async function createUser(req, res) {
         })
     }
 
-    if(existingUser) {
+    if(existingEmail) {
         return res.status(400).json({
             error: 'An account with that email already exists!'
         })
