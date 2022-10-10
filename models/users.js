@@ -4,7 +4,13 @@ const userSchema = new mongoose.Schema({
     username: String,
     email: String,
     passwordHash: String,
-    breweries: [
+    ownedBreweries: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Brewery'
+        }
+    ],
+    tastedBreweries: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Brewery'

@@ -22,7 +22,7 @@ describe('user creation', () => {
         await user.save()
     })
 
-    test('create a new user', async () => {
+    test('new user created successfully', async () => {
         const usersAtStart = await helper.currentUsers()
 
         const newUser = {
@@ -42,6 +42,48 @@ describe('user creation', () => {
         
         const usernames = usersAtEnd.map(u => u.username)
         expect(usernames).toContain(newUser.username)
+    })
+
+    test('user must have unique username', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'testuser',
+            email: 'pikachu@thunderbolt.com',
+            password: 'pikapi'
+        }
+
+        await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(result.body.error).toContain('That username is already taken!')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
+    })
+
+    test('user must have unique email', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'tokepi',
+            email: 'email@email.com',
+            password: 'mommyMisty'
+        }
+
+        await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(result.body.error).toContain('An account with that email already exists!')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
     })
 
     afterAll(() => {
