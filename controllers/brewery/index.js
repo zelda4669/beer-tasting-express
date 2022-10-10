@@ -47,12 +47,9 @@ async function editBreweryInfo(req, res) {
     res.json(updatedBrewery)
 }
 
-function deleteBrewery(req, res, next) {
-    Brewery.findByIdAndRemove(req.params.breweryid)
-        .then(() => {
-            res.status(204).send('Brewery has been deleted.')
-        })
-        .catch(err => next(err))
+async function deleteBrewery(req, res) {
+    await Brewery.findByIdAndRemove(req.params.breweryid)
+    res.status(204).send('Brewery has been deleted.')
 }
 
 module.exports = {

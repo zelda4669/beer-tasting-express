@@ -21,4 +21,4 @@ Content-Type: application/json
     }
 
 ###
-DELETE http://localhost:3001/api/brewery/632d4d1346d7c805ff7c64f3
+DELETE http://localhost:3001/api/brewery/633d65974114bc52375717d3
