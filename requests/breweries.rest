@@ -1,7 +1,7 @@
 GET http://localhost:3001/api/brewery
 
 ###
-GET http://localhost:3001/api/brewery/6325ea0fab6d56149cc5291d
+GET http://localhost:3001/api/brewery/6325ea5dab6d56149cc52923
 
 ###
 POST http://localhost:3001/api/brewery

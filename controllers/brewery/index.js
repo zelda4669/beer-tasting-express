@@ -5,17 +5,13 @@ async function listAllBreweries(req, res) {
     res.json(breweries)
 }
 
-function getBreweryDetailInformation(req, res, next) {
-    let id = req.params.breweryid
-    Brewery.findById(id)
-        .then(b => {
-            if(b) {
-                res.json(b)
-            } else {
-                res.status(404).end()
-            }
-        })
-        .catch(err => next(err))
+async function getBreweryDetailInformation(req, res) {
+    const brewery = await Brewery.findById(req.params.breweryid)
+    if(brewery) {
+        res.json(brewery)
+    } else {
+        res.status(404).end()
+    }
 }
 
 function addBrewery(req, res) {
