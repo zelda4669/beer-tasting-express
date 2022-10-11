@@ -28,7 +28,7 @@ describe('user creation', () => {
         const newUser = {
             username: 'new user',
             email: 'special@email.com',
-            password: 'psyduck'
+            password: 'psyduck27'
         }
 
         await api
@@ -50,7 +50,7 @@ describe('user creation', () => {
         const newUser = {
             username: 'testuser',
             email: 'pikachu@thunderbolt.com',
-            password: 'pikapi'
+            password: 'pipipikachu'
         }
 
         const res = await api
@@ -81,6 +81,27 @@ describe('user creation', () => {
             .expect('Content-Type', /application\/json/)
         
         expect(res.body.error).toContain('An account with that email already exists!')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
+    })
+
+    test('password must have 8 characters', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'meowth',
+            email: 'meowth@email.com',
+            password: 'usuck'
+        }
+
+        const res = await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(res.body.error).toContain('Password must be at least 8 characters')
 
         const usersAtEnd = await helper.currentUsers()
         expect(usersAtEnd).toEqual(usersAtStart)

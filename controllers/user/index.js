@@ -25,6 +25,12 @@ async function createUser(req, res) {
         })
     }
 
+    if(password.length < 8) {
+        return res.status(400).json({
+            error: 'Password must be at least 8 characters'
+        })
+    }
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
 

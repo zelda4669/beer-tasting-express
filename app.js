@@ -3,7 +3,7 @@ const express = require('express')
 require('express-async-errors')
 const app = express()
 const cors = require('cors')
-const logger = require('/utils/logger')
+const logger = require('./utils/logger')
 
 const basicRouter = require('./routes/basic/index')
 const breweryRouter = require('./routes/brewery/index')
