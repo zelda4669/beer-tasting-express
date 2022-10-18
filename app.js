@@ -3,20 +3,23 @@ const express = require('express')
 require('express-async-errors')
 const app = express()
 const cors = require('cors')
+const logger = require('./utils/logger')
+
 const basicRouter = require('./routes/basic/index')
 const breweryRouter = require('./routes/brewery/index')
 const userRouter = require('./routes/user/index')
+
 const middleware = require('./utils/middleware')
 const mongoose = require('mongoose')
 
-console.log('Connecting to database...')
+logger.info('Connecting to database...')
 
 mongoose.connect(config.MONGODB_URI)
     .then(() => {
-        console.log('Connected to database')
+        logger.info('Connected to database')
     })
     .catch((error) => {
-        console.error('Error connecting to database:', error.message)
+        logger.error('Error connecting to database:', error.message)
     })
 
 app.use(cors())

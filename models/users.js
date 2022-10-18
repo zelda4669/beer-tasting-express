@@ -1,10 +1,26 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    passwordHash: String,
-    breweries: [
+    username: {
+        type: String,
+        required: true,
+        min: [3, 'Username must be at least three characters!']
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    passwordHash: {
+        type: String,
+        required: true
+    },
+    ownedBreweries: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Brewery'
+        }
+    ],
+    tastedBreweries: [
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Brewery'

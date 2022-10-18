@@ -7,6 +7,7 @@ const api = supertest(app)
 
 const User = require('../models/users')
 const helper = require('./test_helper')
+const Brewery = require('../models/brewery')
 
 describe('user creation', () => {
     beforeEach(async () => {
@@ -22,13 +23,13 @@ describe('user creation', () => {
         await user.save()
     })
 
-    test('create a new user', async () => {
+    test('new user created successfully', async () => {
         const usersAtStart = await helper.currentUsers()
 
         const newUser = {
             username: 'new user',
             email: 'special@email.com',
-            password: 'psyduck'
+            password: 'psyduck27'
         }
 
         await api
@@ -44,8 +45,76 @@ describe('user creation', () => {
         expect(usernames).toContain(newUser.username)
     })
 
+    test('user must have unique username', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'testuser',
+            email: 'pikachu@thunderbolt.com',
+            password: 'pipipikachu'
+        }
+
+        const res = await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(res.body.error).toContain('That username is already taken!')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
+    })
+
+    test('user must have unique email', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'tokepi',
+            email: 'email@email.com',
+            password: 'mommyMisty'
+        }
+
+        const res = await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(res.body.error).toContain('An account with that email already exists!')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
+    })
+
+    test('password must have 8 characters', async () => {
+        const usersAtStart = await helper.currentUsers()
+
+        const newUser = {
+            username: 'meowth',
+            email: 'meowth@email.com',
+            password: 'usuck'
+        }
+
+        const res = await api
+            .post('/api/users/registration')
+            .send(newUser)
+            .expect(400)
+            .expect('Content-Type', /application\/json/)
+        
+        expect(res.body.error).toContain('Password must be at least 8 characters')
+
+        const usersAtEnd = await helper.currentUsers()
+        expect(usersAtEnd).toEqual(usersAtStart)
+    })
+
     afterAll(() => {
         mongoose.connection.close()
     })
 })
 
+// describe('brewery creation and editing', () => {
+//     beforeEach(async () => {
+//         await Brewery.deleteMany({})
+//     })
+// })
