@@ -10,7 +10,7 @@ breweryRouter.get('/:breweryid', breweryController.getBreweryDetailInformation)
 // private endpoints
 breweryRouter.post('/', breweryController.addBrewery)
 breweryRouter.route('/:breweryid')
-    .put(breweryController.editBreweryInfo)
+    .put(breweryController.editTasted)
     .delete(breweryController.deleteBrewery)
 
 

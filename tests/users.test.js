@@ -7,6 +7,7 @@ const api = supertest(app)
 
 const User = require('../models/users')
 const helper = require('./test_helper')
+const Brewery = require('../models/brewery')
 
 describe('user creation', () => {
     beforeEach(async () => {
@@ -112,3 +113,8 @@ describe('user creation', () => {
     })
 })
 
+// describe('brewery creation and editing', () => {
+//     beforeEach(async () => {
+//         await Brewery.deleteMany({})
+//     })
+// })

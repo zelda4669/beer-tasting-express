@@ -30,7 +30,7 @@ async function addBrewery(req, res) {
     const auth = jwt.verify(token, process.env.SECRET)
 
     if(!auth.id) {
-        return res.status(401).json({ error: 'token missing or invalid' })
+        return res.status(401).json({ error: 'Token missing or invalid.' })
     }
 
     const user = await User.findById(auth.userId)
@@ -43,7 +43,7 @@ async function addBrewery(req, res) {
         name: body.name,
         location: body.location,
         tasted: body.tasted || false,
-        owner: user._id
+        owner: [user._id]
     })
 
     const savedBrewery = await brewery.save()
@@ -52,7 +52,38 @@ async function addBrewery(req, res) {
     res.status(201).json(savedBrewery)
 }
 
-async function editBreweryInfo(req, res) {
+async function editBreweryDetails(req, res) {
+    const body = req.body
+    const token = getTokenFrom(req)
+    const auth = jwt.verify(token, process.env.SECRET)
+
+    if(!auth.id) {
+        return res.status(401).json({ error: 'Token missing or invalid.' })
+    }
+
+    const user = await User.findById(auth.userId)
+
+    const toUpdate = await Brewery.findById(req.params.breweryId)
+
+    if(user._id !== toUpdate.id) {
+        return res.status(401).json({ error: 'You must be the brewery owner to make changes!' })
+    }
+
+    const brewery = {
+        name: body.name,
+        location: body.location,
+    }
+
+    const updatedBrewery = await Brewery.findByIdAndUpdate(
+        req.params.breweryId,
+        brewery,
+        { new: true, runValidators: true, context: 'query' }
+    )
+
+    res.json(updatedBrewery)
+}
+
+async function editTasted(req, res) {
     const body = req.body
 
     const brewery = {
@@ -76,7 +107,8 @@ async function deleteBrewery(req, res) {
 module.exports = {
     listAllBreweries,
     getBreweryDetailInformation,
+    editBreweryDetails,
     addBrewery,
-    editBreweryInfo,
+    editTasted,
     deleteBrewery,
 }
